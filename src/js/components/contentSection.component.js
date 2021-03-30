@@ -71,9 +71,11 @@ const ContentSection = props => {
             <Row>
                 <Col md={{size:8,offset:2}}>
                     <Paper elevation={2}>
-                        <Box p={2}>
+                        <Box >
                             {
-                                renderTable() 
+                                props.currentData.length
+                                ?renderTable() 
+                                :null
                             }
                         </Box>
                     </Paper>
