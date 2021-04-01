@@ -8,10 +8,11 @@ const SearchBar = props =>{
     const registerCheckBox = useRef();
 
     const searchBySubstring = () =>{
-        const regexp = new RegExp(`${requestInput.current.value}`,`g${registerCheckBox.current.checked?"i":""}`)
+        const regexp = new RegExp(`${requestInput.current.value === " "?`\\s`:requestInput.current.value}`,`g${registerCheckBox.current.checked?"i":""}`);
+        console.log(regexp)
         props.dispatch({
             type:"SEARCH_WITH_DATA",
-           payload:[...props.data.filter(item => regexp.test(item)?true:false)]
+           payload:[...props.data.filter(item => item.search(regexp) !==-1?true:false)]
         }) 
         
     }
@@ -26,7 +27,7 @@ const SearchBar = props =>{
         console.log(requestInput.current.value)
         props.dispatch({
             type:"SEARCH_WITH_DATA",
-           payload:[...props.data.filter(item => item.length >=requestInput.current.value?true:false )]
+           payload:[...props.data.filter(item => item.length >requestInput.current.value?true:false )]
         }) 
     }
     return(

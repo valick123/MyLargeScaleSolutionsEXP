@@ -7,12 +7,12 @@ import SearchBar from "./searchBar.component";
 export const Main = props =>{
     const dispatch = useDispatch();
     useEffect(()=>{
-        fetch(`https://api.allorigins.win/get?url=https://www.mrsoft.by/data.json`)
+        fetch(`https://jsonp.afeld.me/?url=https://www.mrsoft.by/data.json`)
             .then(response => response.json())
             .then(data => {
                 dispatch({
                     type:"GET_DATA",
-                    payload:JSON.parse(data.contents)
+                    payload:data
                 })
             })
     },[])
