@@ -3,7 +3,7 @@ import React from "react";
 import {connect} from "react-redux";
 import { Col, Container, Row } from "reactstrap";
 import {makeStyles} from "@material-ui/core";
-
+// стили Meterial-ui
 const useStyles = makeStyles(theme=>({
          head:{
              backgroundColor: theme.palette.primary.main,
@@ -16,6 +16,7 @@ const useStyles = makeStyles(theme=>({
 
 const ContentSection = props => {
     const classes = useStyles()
+    // рендер таблицы данных
     const renderTable = () => {
         return(
             <TableContainer >
@@ -72,8 +73,8 @@ const ContentSection = props => {
                 <Col md={{size:8,offset:2}}>
                     <Paper elevation={2}>
                         <Box >
-                            {
-                                props.currentData.length
+                            { // проверка наличия данных перед отрисовкой
+                                props.currentData.length 
                                 ?renderTable() 
                                 :null
                             }
@@ -90,5 +91,5 @@ const ContentSection = props => {
 const mapStateToProps = store => ({
     currentData:store.main.currentData
 })
-
+// подключение хранилища Redux
 export default connect(mapStateToProps)(ContentSection);

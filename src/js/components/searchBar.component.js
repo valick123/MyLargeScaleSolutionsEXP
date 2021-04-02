@@ -4,29 +4,35 @@ import {connect} from "react-redux";
 import { Col, Container, Row } from "reactstrap";
 
 const SearchBar = props =>{
+    // получения значения запроса из Input
     const requestInput = useRef();
+    // получения значения checkbox для регистра
     const registerCheckBox = useRef();
-
+    // поиск по подстроке
     const searchBySubstring = () =>{
+        // создание регулярного выражения
         const regexp = new RegExp(`${requestInput.current.value === " "?`\\s`:requestInput.current.value}`,`g${registerCheckBox.current.checked?"i":""}`);
-        console.log(regexp)
+        // запись в хранилище
         props.dispatch({
             type:"SEARCH_WITH_DATA",
-           payload:[...props.data.filter(item => item.search(regexp) !==-1?true:false)]
+            // фильтрация по регулярному выражению
+           payload:[...props.data.filter(item => item.search(regexp) !==-1?true:false)] 
         }) 
         
     }
+    // сброс рузультатов поиса при пустой строке
     const searchReset = () => {
-        if(requestInput.current.value === ''){
+        if(!requestInput.current.value){
             props.dispatch({
                 type:"RESET"
             })
         }
     }
+    // поиск по длине строки
     const searchByLength = () =>{
-        console.log(requestInput.current.value)
         props.dispatch({
             type:"SEARCH_WITH_DATA",
+            // фильтрация по длине строки
            payload:[...props.data.filter(item => item.length >requestInput.current.value?true:false )]
         }) 
     }
@@ -55,9 +61,7 @@ const SearchBar = props =>{
                                 </Button>
                             </ButtonGroup>
                         </Box>
-                    </Paper>
-                    
-                    
+                    </Paper>                  
                 </Col>
             </Row>
         </Container>
@@ -66,5 +70,5 @@ const SearchBar = props =>{
 const mapStateToProps = store => ({
     data:store.main.data
 })
-
+// подключение хранилища Redux
 export default connect(mapStateToProps)(SearchBar);
